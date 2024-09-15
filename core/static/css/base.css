@@ -1,0 +1,17 @@
+.block {
+    box-shadow: 0px 0px 5px grey;
+    border-radius: 10px;
+    
+}
+
+.block-1 .btn-show {
+    width: 300px;
+}
+
+.body .row {
+    height: 335px;
+}
+
+.block-news {
+    height: 80vh;
+}
