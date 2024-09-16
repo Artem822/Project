@@ -1,8 +1,10 @@
 from typing import Any
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
-from .models import Employee
+from .serizalizers import *
+from .models import *
 from .forms import *
+from rest_framework import viewsets
 
 class HomeView(TemplateView):
     template_name = 'base.html'
@@ -26,10 +28,12 @@ class HomeUsersView(TemplateView):
             3: 'Редактор',
             4: 'Пользователь системы'
         }[id]
+
         context = {
             'users': Employee.objects.filter(role=role),
-            'title': role
+            'title': role,
         }
+
         return render(request=request, template_name='base.html', context=context)
     
 
@@ -42,7 +46,22 @@ def EditEmployee(request, id):
             return redirect('home')
     else:
         form = EmployeeForm(instance=Employees)
+    skips = Employees.skip.all()
 
     return render(request,
                 'edit.html',
-                {'form': form})
+                {'form': form,
+                 'employee' : Employees,
+                 'skips':skips})
+    
+class EmployeeViewset(viewsets.ModelViewSet):
+    queryset = Employee.objects.all()
+    serializer_class = EmployeeSerizalizer
+
+class EducationViewset(viewsets.ModelViewSet):
+    queryset = Education.objects.all()
+    serializer_class = EducationSerizalizer
+
+class SkipViewset(viewsets.ModelViewSet):
+    queryset = Skip.objects.all()
+    serializer_class = SkipSerizalizer

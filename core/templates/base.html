@@ -10,7 +10,14 @@
     <link href="{% static 'css/base.css' %}" rel="stylesheet" >
   </head>
   <body>
-
+    <style>
+        .vertical-line {
+            width: 1px;
+            height: 30px; 
+            background-color: black;
+            display: inline-block;
+        }
+    </style>
     <div class="header py-2" style="background-color: greenyellow;">
       <div class="container">
           <div class="row">             
@@ -20,7 +27,7 @@
                           <div class="me-3">{{user}}</div>
                       </div>
                   {% else %}
-                      <div class="d-flex justify-content-end align-items-center h-100">Войти</div>
+                      <div class="d-flex justify-content-end align-items-center h-100"><a href="/login">Войти</a></div>
                   {% endif %}
               </div>
 
@@ -28,106 +35,81 @@
 
       </div>
   </div>
-
-
   <div class="container body">
-
       <div class="row">
-
           <div class="col block block-1 mt-3 p-3">
               <div class="text-center">
                   <div class="d-flex justify-content-center">
                       <div class="">
                           <form action="{% url 'user_by_id' 0 %}" method="get">
-                              <button type="submit" class="btn btn-sm btn-primary btn-show">Администратор системы</button>    
+                              <button type="submit" class="btn btn-sm btn-secondary btn-show">Администратор системы</button>    
                           </form>
                       </div>
+                      <script>
+                        var id = 0;
+                      </script>
                       <div class="ms-1">
-                          <button class="btn btn-sm btn-primary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-controls="collapse1">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
-                                  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0"/>
-                              </svg>
+                          <button class="btn btn-sm btn-secondary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-controls="collapse1">
+                            ↓
                           </button>
                       </div>
                   </div>
   
                   <div class="collapse" id="collapse1">
   
-                      <div class="">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                          </svg>
-                      </div>
+                    <div class="vertical-line"></div>
                       <div class="d-flex justify-content-center">
                           <div class="">
                               <form action="{% url 'user_by_id' 1 %}" method="get">
-                                  <button class="btn btn-sm btn-primary btn-show">Системный администратор</button>
+                                  <button class="btn btn-sm btn-secondary btn-show">Системный администратор</button>
                               </form>
                           </div>
                           <div class="ms-1">
-                              <button class="btn btn-sm btn-primary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-controls="collapse2">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
-                                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0"/>
-                                  </svg>
+                              <button class="btn btn-sm btn-secondary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-controls="collapse2">
+                                ↓
                               </button>
                           </div>
                       </div>
                       
                       <div class="collapse" id="collapse2">
 
-                          <div class="">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                                  <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                              </svg>
-                          </div>
+                        <div class="vertical-line"></div>
                           <div class="d-flex justify-content-center">
                               <div class="">
                                   <form action="{% url 'user_by_id' 2 %}" method="get">
-                                      <button class="btn btn-sm btn-primary btn-show">Контент менеджер аппарата управления</button>    
+                                      <button class="btn btn-sm btn-secondary btn-show">Контент менеджер аппарата управления</button>    
                                   </form>                                    
                               </div>
                               <div class="ms-1">
-                                  <button class="btn btn-sm btn-primary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-controls="collapse3">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
-                                          <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0"/>
-                                      </svg>
+                                  <button class="btn btn-sm btn-secondary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-controls="collapse3">
+                                    ↓
                                   </button>
                               </div>
                           </div>
 
                           <div class="collapse" id="collapse3">
 
-                              <div class="">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                                      <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                                  </svg>
-                              </div>
+                            <div class="vertical-line"></div>
                               <div class="d-flex justify-content-center">
                                   <div class="">
                                       <form action="{% url 'user_by_id' 3 %}" method="get">
-                                          <button class="btn btn-sm btn-primary btn-show">Редактор</button>
+                                          <button class="btn btn-sm btn-secondary btn-show">Редактор</button>
                                       </form>
                                   </div>
                                   <div class="ms-1">
-                                      <button class="btn btn-sm btn-primary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-controls="collapse4">
-                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-square-fill" viewBox="0 0 16 16">
-                                              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm6.5 4.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5a.5.5 0 0 1 1 0"/>
-                                          </svg>
+                                      <button class="btn btn-sm btn-secondary btn-down" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-controls="collapse4">
+                                        ↓
                                       </button>
                                   </div>
                               </div>
 
                               <div class="collapse" id="collapse4">
 
-                                  <div class="">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-                                          <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
-                                      </svg>
-                                  </div>
+                                <div class="vertical-line"></div>
                                   <div class="d-flex justify-content-center">
                                       <div class="">
                                           <form action="{% url 'user_by_id' 4 %}" method="get">
-                                              <button class="btn btn-sm btn-primary btn-show">Пользователь системы</button>
+                                              <button class="btn btn-sm btn-secondary btn-show">Пользователь системы</button>
                                           </form>
                                       </div>
                                   </div>
@@ -147,8 +129,8 @@
                   {% endfor %}
               </ul>
           </div>
-
       </div>
   </div>  
+  {{form}}
   </body>
 </html>

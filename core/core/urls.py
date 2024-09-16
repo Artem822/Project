@@ -15,15 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from project import views
 from project.views import HomeView, HomeUsersView, EditEmployee
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'employee_api', views.EmployeeViewset, basename='employee_api')
+router.register(r'education_api', views.EducationViewset, basename='education_api')
+router.register(r'skip_api', views.SkipViewset, basename='skip_api')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView.as_view(), name='home'),
     path('users/<int:id>/', HomeUsersView.as_view(), name='user_by_id'),
-    path('edit/<int:id>/', EditEmployee, name='edit')
+    path('edit/<int:id>/', EditEmployee, name='edit'),
+    path('api/', include(router.urls)),
+    path('', include('rest_framework.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
