@@ -1,4 +1,5 @@
 from django.db import models
+
 class Skip(models.Model):
     CHOICE = [
         ('Уважительная', 'Уважительная'),
@@ -32,13 +33,13 @@ class Employee(models.Model):
     middle_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     photo = models.ImageField()
-    work_phone = models.IntegerField()
+    work_phone = models.IntegerField(blank=True, null=True)
     email = models.EmailField()
-    home_phone = models.IntegerField()
-    cabinet = models.IntegerField()
+    home_phone = models.IntegerField(blank=True, null=True)
+    cabinet = models.IntegerField(blank=True, null=True)
     role = models.CharField(max_length=50, choices=CHOICE)
     skip = models.ManyToManyField(to=Skip, blank=True)
-    education = models.ForeignKey(to=Education, on_delete=models.DO_NOTHING)
+    education = models.ForeignKey(to=Education, on_delete=models.DO_NOTHING,blank=True, null=True)
     
     def __str__(self) -> str:
         return f"{self.firts_name} {self.middle_name} {self.last_name}" 

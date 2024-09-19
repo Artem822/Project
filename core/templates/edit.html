@@ -11,7 +11,7 @@
     <div class=" py-2" style="background-color: greenyellow;">
         <h1 style="max-width: fit-content;
             margin-left: auto;
-            margin-right: auto;"> Информация о {{employee}}</h1>
+            margin-right: auto;"> Информация о {{employee}} <img style="width: 150px; border-radius: 10px" src="{{employee.photo.url}}" alt=""></h1>
     </div>
     <div class="border border-secondary rounded"
     style="max-width: fit-content;
@@ -32,6 +32,7 @@
             </div>
          </form>
         </div>
+        {% if skips %}
          <div class="overflow-auto"
          style="max-width: fit-content;
          margin-left: auto;
@@ -41,10 +42,10 @@
         max-height:500px">
         <table class="table-bordered ">
             <tr>
-                <th>title</th>
-                <th>Skip from</th>
-                <th>Skip to</th>
-                <th>Cause</th>
+                <th>Название</th>
+                <th>С</th>
+                <th>До</th>
+                <th>Причина</th>
             </tr>
             {% for skip in skips %}
             <tr>
@@ -55,8 +56,58 @@
             </tr>
             {% endfor %}
         </table>
+        <div class="d-flex justify-content-end mt-1"></div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2">Добавить</button>
+        </div>
+        {% else %}
+        <div class="overflow-auto"
+         style="max-width: fit-content;
+         margin-left: auto;
+         margin-right: auto;
+         margin-top:20px;
+        ">Пропусков нет
+        </div>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2">Добавить</button>
+        </div>
+        {% endif %}
+        
+    <div class="modal fade" id="modal2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                        <h5>Добавление пропуска</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table>
+                            <tr>
+                                <th>Название:</th>
+                                <td>{{SkipForm.title}}</td>
+                            </tr>
+                            <tr>
+                                <th>C:</th>
+                                <td>{{SkipForm.skip_from}}</td>
+                            </tr>
+                            <tr>
+                                <th>До:</th>
+                                <td>{{SkipForm.skip_to}}</td>
+                            </tr>
+                            <tr>
+                                <th>Причина:</th>
+                                <td>{{SkipForm.cause}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-         
-    
 </body>
 </html>

@@ -39,20 +39,29 @@ class HomeUsersView(TemplateView):
 
 def EditEmployee(request, id):
     Employees = Employee.objects.get(id=id)
-    if request.method == 'POST':
-        form = EmployeeForm(request.POST, instance=Employees)
-        if form.is_valid():
-            form.save()
+    if request.method == 'POST':  
+        user_form = EmployeeForm(request.POST,instance=Employees)
+        skip_form = SkipForm(request.POST) 
+        if user_form.is_valid():
+            user_form.save()
             return redirect('home')
+        elif skip_form.is_valid():
+            skip_form.save()
+            Employees.skip.add(skip_form.save())
+            return redirect('home')    
     else:
-        form = EmployeeForm(instance=Employees)
+        user_form = EmployeeForm( instance=Employees)
+        skip_form = SkipForm()
+        
     skips = Employees.skip.all()
-
+    
     return render(request,
                 'edit.html',
-                {'form': form,
+                {'form': user_form,
                  'employee' : Employees,
-                 'skips':skips})
+                 'skips':skips,
+                 'SkipForm':skip_form
+                 })
     
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
