@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Панель</title>
+</head>
+<body>
+    <div style="max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;">
+        <h1 >Инструменты</h1>
+    </div>
+    <div class="container shadow pt-1 my-5" style="display: grid;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:10px;
+    width: 100%;
+    background-color:rgb(156, 156, 156)" >
+        <div>
+           <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal">Добавить пользователя</button>
+           <div class="modal fade" id="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5>Добавление пользователя</h5>
+                            <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table>
+                                <tr>
+                                    <th>ФИО:</th>
+                                    <td>{{UserForm.username}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Пароль:</th>
+                                    <td>{{UserForm.password1}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Подтверждение пароля:</th>
+                                    <td>{{UserForm.password2}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Роль:</th>
+                                    <td>{{UserForm.role}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Фото:</th>
+                                    <td>{{UserForm.photo}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Почта:</th>
+                                    <td>{{UserForm.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Образование:</th>
+                                    <td>{{UserForm.education}}</td>
+                                </tr>
+                            </table>
+    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="pt-1 mb-1" style="max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;">
+            <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modal2" >Добавить обучение</button>
+            <div class="modal fade" id="modal2">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5>Добавление пропуска</h5>
+                                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table>
+                                    <tr>
+                                        <th>Название:</th>
+                                        <td>{{EducationForm.title}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Начало обучения:</th>
+                                        <td>{{EducationForm.education_from}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Конец обучения:</th>
+                                        <td>{{EducationForm.education_to}}</td>
+                                    </tr>
+                                </table>
+        
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;">
+            <a href="{% url 'home' %}"><button class="btn btn-dark">Назад</button></a>
+        </div>
+    </div>
+    
+
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% if UserForm.errors %}
+    <div class="alert alert-danger">
+        {{ UserForm.errors }}
+    </div>
+{% endif %}
+    
+</body>
+</html>

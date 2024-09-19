@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 class Skip(models.Model):
     CHOICE = [
         ('Уважительная', 'Уважительная'),
@@ -21,7 +21,7 @@ class Education(models.Model):
     def __str__(self) -> str:
         return self.title
     
-class Employee(models.Model):
+class Employee(AbstractUser):
     CHOICE = [
         ('Администратор системы', "Администратор системы"),
         ('Системный администратор', 'Системный администратор'),
@@ -29,12 +29,9 @@ class Employee(models.Model):
         ('Редактор', 'Редактор'),
         ('Пользователь системы', 'Пользователь системы')
     ]
-    firts_name = models.CharField(max_length=50)
-    middle_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+
     photo = models.ImageField()
     work_phone = models.IntegerField(blank=True, null=True)
-    email = models.EmailField()
     home_phone = models.IntegerField(blank=True, null=True)
     cabinet = models.IntegerField(blank=True, null=True)
     role = models.CharField(max_length=50, choices=CHOICE)
@@ -42,5 +39,5 @@ class Employee(models.Model):
     education = models.ForeignKey(to=Education, on_delete=models.DO_NOTHING,blank=True, null=True)
     
     def __str__(self) -> str:
-        return f"{self.firts_name} {self.middle_name} {self.last_name}" 
+         return str(self.username)
     

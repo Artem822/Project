@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from project import views
 from project.views import HomeView, HomeUsersView, EditEmployee
 from rest_framework.routers import DefaultRouter
-
+from django.contrib.auth.views import LogoutView
 router = DefaultRouter()
 router.register(r'employee_api', views.EmployeeViewset, basename='employee_api')
 router.register(r'education_api', views.EducationViewset, basename='education_api')
@@ -35,4 +35,6 @@ urlpatterns = [
     path('edit/<int:id>/', EditEmployee, name='edit'),
     path('api/', include(router.urls)),
     path('', include('rest_framework.urls')),
+    path('panel/', views.Panel.as_view(), name='panel'),
+    path('logout/', LogoutView.as_view(), name='logout')
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

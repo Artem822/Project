@@ -5,6 +5,7 @@ from .serizalizers import *
 from .models import *
 from .forms import *
 from rest_framework import viewsets
+from django.contrib import messages
 
 class HomeView(TemplateView):
     template_name = 'base.html'
@@ -62,7 +63,29 @@ def EditEmployee(request, id):
                  'skips':skips,
                  'SkipForm':skip_form
                  })
+
+class Panel(TemplateView):
+    template_name = 'panel.html'
+    def get(self, request):
+        user_form = UserForm()
+        education_form =EducationForm()
+        return render(request, self.template_name, {'UserForm':user_form,
+                                                    'EducationForm':education_form})
     
+    def post(self,request):
+        user_form = UserForm(request.POST, request.FILES)
+        education_form =EducationForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, "Пользователь был успешно добавлен")
+            return redirect('panel')
+        elif education_form.is_valid():
+            education_form.save()
+            messages.success(request, "Обучение был успешно добавлено")
+            return redirect('panel')
+        return render(request, self.template_name, {'UserForm':user_form,
+                                                    'EducationForm':education_form})
+
 class EmployeeViewset(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerizalizer
